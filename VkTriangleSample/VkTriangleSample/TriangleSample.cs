@@ -46,6 +46,8 @@ namespace VkTriangleSample
 
         private void CreateInstance()
         {
+            Vulkan.vkInitialize();
+
             VkApplicationInfo appInfo = new();
             appInfo.sType = VkStructureType.ApplicationInfo;
             appInfo.pApplicationName = Title.ToVk();
@@ -65,7 +67,7 @@ namespace VkTriangleSample
             createInfo.ppEnabledExtensionNames = glfwExtensions;
 
             createInfo.enabledLayerCount = 0;
-            
+
             Vulkan.vkCreateInstance(&createInfo, null, out instance).CheckResult();
 
             uint ExtensionCount = 0;
