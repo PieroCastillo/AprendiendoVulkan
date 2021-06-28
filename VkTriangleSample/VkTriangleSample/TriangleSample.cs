@@ -36,7 +36,7 @@ namespace VkTriangleSample
             glfw.WindowHint(WindowHintClientApi.ClientApi, ClientApi.NoApi);
             glfw.WindowHint(WindowHintBool.Resizable, false);
 
-            windowImpl = glfw.CreateWindow(Width, Height, Title, (Monitor*)IntPtr.Zero.ToPointer(), null);
+            windowImpl = glfw.CreateWindow(Width, Height, Title, null, null);
         }
 
         private void InitVulkan()
@@ -53,6 +53,22 @@ namespace VkTriangleSample
             appInfo.pEngineName = "Lettuce Engine".ToVk();
             appInfo.engineVersion = new VkVersion(1, 0, 0);
             appInfo.apiVersion = VkVersion.Version_1_0;
+
+            VkInstanceCreateInfo createInfo = new();
+            createInfo.sType = VkStructureType.InstanceCreateInfo;
+            createInfo.pApplicationInfo = &appInfo;
+
+            uint glfwExtensionCount = 0;
+            byte** glfwExtensions = glfw.GetRequiredInstanceExtensions(out glfwExtensionCount);
+
+            createInfo.enabledExtensionCount = glfwExtensionCount;
+            createInfo.ppEnabledExtensionNames = glfwExtensions;
+
+            createInfo.enabledLayerCount = 0;
+            
+            Vulkan.vkCreateInstance(&createInfo, null, out instance).CheckResult();
+
+            uint ExtensionCount = 0;
         }
 
         private void MainLoop()
