@@ -10,11 +10,15 @@ namespace VkTriangleSample
 {
     public unsafe class TriangleSample
     {
+        //Vulkan/Glfw data
         private Glfw glfw;
         private WindowHandle* windowImpl;
         private VkInstance instance;
+
+        //Custom Data
         private const int Width = 800;
         private const int Height = 600;
+        private string Title = "LearnVulkan";
 
         public void Run()
         {
@@ -32,7 +36,7 @@ namespace VkTriangleSample
             glfw.WindowHint(WindowHintClientApi.ClientApi, ClientApi.NoApi);
             glfw.WindowHint(WindowHintBool.Resizable, false);
 
-            windowImpl = glfw.CreateWindow(Width, Height, "Nice", (Monitor*)IntPtr.Zero.ToPointer(), null);
+            windowImpl = glfw.CreateWindow(Width, Height, Title, (Monitor*)IntPtr.Zero.ToPointer(), null);
         }
 
         private void InitVulkan()
@@ -44,7 +48,7 @@ namespace VkTriangleSample
         {
             VkApplicationInfo appInfo = new();
             appInfo.sType = VkStructureType.ApplicationInfo;
-            appInfo.pApplicationName = 
+            appInfo.pApplicationName = Title.ToVk();
         }
 
         private void MainLoop()

@@ -9,6 +9,6 @@ namespace VkTriangleSample
 {
     public unsafe static class Extensions
     {
-        public static byte* ToVk(string text) => new VkString(text).Pointer;
+        public static byte* ToVk(this string text) => new VkString(text).Pointer;
     }
 }
