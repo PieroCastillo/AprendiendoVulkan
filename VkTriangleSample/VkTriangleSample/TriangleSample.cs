@@ -49,6 +49,10 @@ namespace VkTriangleSample
             VkApplicationInfo appInfo = new();
             appInfo.sType = VkStructureType.ApplicationInfo;
             appInfo.pApplicationName = Title.ToVk();
+            appInfo.applicationVersion = new VkVersion(1, 0, 0);
+            appInfo.pEngineName = "Lettuce Engine".ToVk();
+            appInfo.engineVersion = new VkVersion(1, 0, 0);
+            appInfo.apiVersion = VkVersion.Version_1_0;
         }
 
         private void MainLoop()
