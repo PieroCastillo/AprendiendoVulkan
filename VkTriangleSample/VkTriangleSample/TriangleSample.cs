@@ -42,7 +42,9 @@ namespace VkTriangleSample
 
         private void CreateInstance()
         {
-
+            VkApplicationInfo appInfo = new();
+            appInfo.sType = VkStructureType.ApplicationInfo;
+            appInfo.pApplicationName = 
         }
 
         private void MainLoop()
